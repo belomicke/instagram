@@ -1,0 +1,26 @@
+@import "fonts";
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", -apple-system, apple color emoji, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    margin: 0;
+    background-color: var(--body-background-color);
+    color: var(--app-text-color);
+}
+
+body.dark {
+    --body-background-color: #181818;
+    --app-text-color: #fff;
+}
+
+body.white {
+    --body-background-color: #fff;
+    --app-text-color: #000;
+}
+
+input, button, select, textarea {
+    font-family: inherit;
+}

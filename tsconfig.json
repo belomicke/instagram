@@ -1,0 +1,23 @@
+{
+    "moduleResolution": "Bundler",
+    "importHelpers": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "Bundler",
+        "typeRoots": [
+            "./resources/js/src/index.d.ts"
+        ],
+        "lib": [
+            "DOM",
+            "ES2022"
+        ],
+        "paths": {
+            "@/*": [
+                "./resources/js/src/*"
+            ]
+        }
+    }
+}

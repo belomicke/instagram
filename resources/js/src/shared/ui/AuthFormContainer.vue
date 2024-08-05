@@ -29,6 +29,7 @@ defineProps({
     flex-direction: column;
     align-items: center;
     gap: 40px;
+    max-width: 320px;
 }
 
 .form {
@@ -46,6 +47,7 @@ defineProps({
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     color: #ff595a;
     height: 65px;
     width: 100%;

@@ -15,18 +15,17 @@ readonly class UserService
         string $email,
         string $password,
         string $name = "",
-    ): array
-    {
+    ): array {
         $emailIsTaken = $this->users->getByEmail(email: $email);
 
         if ($emailIsTaken) {
-            return [false, "email is taken"];
+            return [false, "provided email is taken"];
         }
 
         $usernameIsTaken = $this->users->getByUsername(username: $username);
 
         if ($usernameIsTaken) {
-            return [false, "username is taken"];
+            return [false, "provided username is taken"];
         }
 
         $this->users->create(

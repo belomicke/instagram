@@ -26,6 +26,6 @@ export const useAuthStore = defineStore("auth", () => {
     return {
         getIsAuth,
 
-        getViewer
+        getViewer,
     }
 })

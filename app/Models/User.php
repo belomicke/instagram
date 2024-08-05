@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 /**
  * @property int id
@@ -21,7 +20,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  *
  * @method static User create (array $attributes = [])
  */
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 

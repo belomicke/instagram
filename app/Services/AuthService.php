@@ -12,31 +12,22 @@ readonly class AuthService
         private UserRepository $users
     ) {}
 
-    public function login(string $login, string $password): string
+    public function login(string $login, string $password): bool
     {
         $user = $this->users->getByLogin($login);
 
         if (!$user) {
-            return "";
+            return false;
         }
 
         if (!Hash::check($password, $user->password)) {
-            return "";
+            return false;
         }
 
         if (str_contains($login, "@")) {
-            if (Auth::attempt(['email' => $login, 'password' => $password])) {
-                $request->session()->regenerate();
-            }
+            return Auth::attempt(['email' => $login, 'password' => $password]);
         } else {
-            if (Auth::attempt(['username' => $login, 'password' => $password])) {
-                $request->session()->regenerate();
-            }
+            return Auth::attempt(['username' => $login, 'password' => $password]);
         }
-    }
-
-    public function refreshAccessToken(): string
-    {
-        return auth()->refresh(true, true, true);
     }
 }

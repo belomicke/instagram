@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository
 {
@@ -11,8 +13,7 @@ class UserRepository
         string $email,
         string $password,
         string $name = "",
-    ): User
-    {
+    ): User {
         return User::create([
             "name" => $name,
             "username" => $username,
@@ -38,5 +39,10 @@ class UserRepository
         } else {
             return $this->getByUsername(username: $login);
         }
+    }
+
+    public function getViewer(): Authenticatable|User
+    {
+        return Auth::guard("sanctum")->user();
     }
 }

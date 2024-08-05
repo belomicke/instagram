@@ -4,41 +4,30 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Repositories\UserRepository;
+use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     public function __construct(
-        private readonly UserRepository $users
+        private readonly AuthService $authService
     ) {}
 
     public function __invoke(LoginRequest $request): JsonResponse
     {
-        $login = $request->get("login");
-        $password = $request->get("password");
+        $login = $request->get(key: 'login');
+        $password = $request->get(key: 'password');
 
-        $user = $this->users->getByLogin($login);
+        $success = $this->authService->login(
+            login: $login,
+            password: $password
+        );
 
-        if (!$user) {
-            return $this->responseError("invalid credentials");
+        if ($success === false) {
+            $this->responseError(message: 'invalid credentials');
         }
 
-        if (!Hash::check($password, $user->password)) {
-            return $this->responseError("invalid credentials");
-        }
-
-        if (str_contains($login, "@")) {
-            if (Auth::attempt(['email' => $login, 'password' => $password])) {
-                $request->session()->regenerate();
-            }
-        } else {
-            if (Auth::attempt(['username' => $login, 'password' => $password])) {
-                $request->session()->regenerate();
-            }
-        }
+        session()->regenerate();
 
         return $this->responseSuccess();
     }

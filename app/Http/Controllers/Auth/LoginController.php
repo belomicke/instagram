@@ -24,10 +24,10 @@ class LoginController extends Controller
         );
 
         if ($success === false) {
-            $this->responseError(message: 'invalid credentials');
+            return $this->responseError(message: 'invalid credentials');
         }
 
-        session()->regenerate();
+        $request->session()->regenerate();
 
         return $this->responseSuccess();
     }

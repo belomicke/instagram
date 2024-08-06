@@ -18,6 +18,7 @@
             "@/*": [
                 "./resources/js/src/*"
             ]
-        }
+        },
+        "allowSyntheticDefaultImports": true
     }
 }

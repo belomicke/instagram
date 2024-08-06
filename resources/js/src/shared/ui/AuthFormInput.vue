@@ -5,13 +5,13 @@ defineProps({
     placeholder: {
         type: String,
         required: false,
-        default: ""
+        default: "",
     },
     type: {
         type: String,
         required: false,
-        default: "text"
-    }
+        default: "text",
+    },
 })
 
 const model = defineModel()
@@ -46,6 +46,9 @@ const blurHandler = () => {
             @blur="blurHandler"
             ref="inputRef"
         />
+        <div class="auth-form-input__right-icon">
+            <slot name="right-icon"></slot>
+        </div>
         <label>
             <span
                 class="auth-form-input__placeholder"
@@ -98,7 +101,6 @@ body.dark .auth-form-input {
         box-shadow: 0 0 0 1px var(--primary-color);
     }
 
-
     &__input:focus ~ label,
     &__input:not(.is-empty) ~ label,
     &__input:disabled ~ label {
@@ -118,6 +120,15 @@ body.dark .auth-form-input {
         &:focus {
             outline: 0;
         }
+    }
+
+    &__right-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        width: 27px;
+        height: 27px;
+        transform: translateY(-50%);
     }
 }
 

@@ -9,11 +9,17 @@ import AuthFormButton from "@/shared/ui/AuthFormButton.vue"
 import AuthFormInput from "@/shared/ui/AuthFormInput.vue"
 import { api } from "@/shared/api/methods"
 import ILink from "@/shared/ui/ILink.vue"
+import UsernameInput from "@/entities/auth/ui/UsernameInput/UsernameInput.vue"
+import EmailInput from "@/entities/auth/ui/EmailInput/EmailInput.vue"
 
 const router = useRouter()
 
 const email = ref<string>("")
+const emailIsTaken = ref<boolean | undefined>(undefined)
+
 const username = ref<string>("")
+const usernameIsTaken = ref<boolean | undefined>(undefined)
+
 const name = ref<string>("")
 const password = ref<string>("")
 
@@ -21,9 +27,11 @@ const isLoading = ref<boolean>(false)
 
 const formIsValid = computed(() => {
     return getEmailIsValidStatus(email.value) &&
-        getUsernameIsValidStatus(username.value) &&
+        getUsernameIsValidStatus(username.value) === "" &&
         getNameIsValidStatus(name.value) &&
-        password.value.length >= 8
+        password.value.length >= 8 &&
+        usernameIsTaken.value === false &&
+        emailIsTaken.value === false
 })
 
 const buttonIsDisabled = computed(() => {
@@ -47,17 +55,37 @@ const submit = async () => {
 
     isLoading.value = false
 }
+
+const updateUsername = (value: string) => {
+    username.value = value
+}
+
+const updateUsernameIsTaken = (value: boolean) => {
+    usernameIsTaken.value = value
+}
+
+const updateEmail = (value: string) => {
+    email.value = value
+}
+
+const updateEmailIsTaken = (value: boolean) => {
+    emailIsTaken.value = value
+}
 </script>
 
 <template>
     <auth-form-container>
-        <auth-form-input
-            placeholder="Эл. почта"
-            v-model="email"
+        <email-input
+            :value="email"
+            :exists="emailIsTaken"
+            @update:value="updateEmail"
+            @update:exists="updateEmailIsTaken"
         />
-        <auth-form-input
-            placeholder="Имя пользователя"
-            v-model="username"
+        <username-input
+            :value="username"
+            :exists="usernameIsTaken"
+            @update:value="updateUsername"
+            @update:exists="updateUsernameIsTaken"
         />
         <auth-form-input
             placeholder="Имя"

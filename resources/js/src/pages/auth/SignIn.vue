@@ -44,6 +44,8 @@ const submit = async () => {
 
     if (data.success) {
         window.location.reload()
+    } else {
+        error.value = "неверный логин или пароль"
     }
 
     isLoading.value = false
